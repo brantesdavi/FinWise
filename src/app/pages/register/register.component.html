@@ -3,26 +3,33 @@
   style="background-image: linear-gradient(180deg, rgb(26.259330734610558, 21.81666612625122, 29.75000012665987) 2.8015153482556343%, rgb(0, 0, 0) 37.220874428749084%);"
   >
   
-  <div #register class="h-full p-8 space-y-12">
+  <div #register class="h-full space-y-4 flex flex-col justify-center">
     
     <div class="space-y-2">
       <h1 class="text-white text-5xl">Get Started Today </h1>
       <h2 class="text-lightOffWhite"><span class="font-medium">Register now for free</span> and start investing on you</h2>
     </div>
-    <!-- <form 
+    <form 
       class="space-y-6"
       [formGroup]="registerForm" 
       (ngSubmit)="onSubmit()">
+
+      @if (errorMessage) {
+        <div class="text-rose-400">{{errorMessage}}</div>
+      }
   
       <input class="bg-transparent text-offWhite border-b border-white p-2 w-full" type="text" placeholder="Enter your username" formControlName="username" />
       <input class="bg-transparent text-lightOffWhite border-b border-white p-2 w-full" type="text" placeholder="Enter your Email" formControlName="email" />
       <input class="bg-transparent text-lightOffWhite border-b border-white p-2 w-full" type="password" placeholder="Enter your Password" formControlName="senha" />
       <input class="bg-transparent text-lightOffWhite border-b border-white p-2 w-full" type="Confirmpassword" placeholder="Confirm your Password" />
-      <button class="bg-transparent border border-white rounded-full py-3 flex justify-center w-full text-lightOffWhite " type="submit">Sign Up</button>
-    </form> -->
-    <span class="">Already has an account? <span class="border-b border-offwhite">Sing in</span></span>
 
-  </div>
+      <div class="flex flex-col space-y-3">
+        <button class="bg-finPurple rounded-xl py-3 flex justify-center w-full font-bold text-offWhite" type="submit">Sign Up</button>
+        <span class="text-lightOffWhite text-sm">Already has an account?
+          <a routerLink="/login" class="font-bold text-finPurple" aria-label="Go to registration page">Sign in</a>
+        </span>
+      </div>
+    </form>   
 
-  
+  </div>  
 </div>

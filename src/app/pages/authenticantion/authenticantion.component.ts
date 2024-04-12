@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router'; 
 
 interface Usuario {
   username: string;
@@ -22,10 +21,13 @@ export class AuthenticantionComponent {
 
   loginForm!: FormGroup;
   registerForm!: FormGroup;
+
+  errorMessage: string | null = null;
   
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
@@ -34,11 +36,19 @@ export class AuthenticantionComponent {
   }
 
   onSubmit():void {
-    const rawForm = this.registerForm.getRawValue();   
+    const rawForm = this.loginForm.getRawValue();   
   
-    this.authService.register(rawForm.email, rawForm.username, rawForm.senha).subscribe(() => {
-      console.log("sucesso")
-    })
+    this.authService
+      .login(rawForm.email, rawForm.senha)
+      .subscribe({
+        next: () => {
+          this.router.navigateByUrl('/home');
+          this.errorMessage = null;
+        },
+        error: (err) => {
+          this.errorMessage = err.code;
+        }
+      });
   }
   
 }
