@@ -6,6 +6,9 @@ import { AuthenticantionModule } from './pages/authenticantion/authenticantion.m
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterModule } from './pages/register/register.module';
 import { AuthService } from './services/auth.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { IconsModule } from './icons/icons.module';
+import { HomeModule } from './pages/home/home.module';
 
 @Component({
   selector: 'app-root',
@@ -16,8 +19,11 @@ import { AuthService } from './services/auth.service';
     ReactiveFormsModule, 
     FormsModule, 
     AuthenticantionModule, 
+    HomeModule,
     RegisterModule,
-    HttpClientModule
+    HttpClientModule,
+    IconsModule, 
+    FontAwesomeModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

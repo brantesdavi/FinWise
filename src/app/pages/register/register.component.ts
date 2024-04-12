@@ -27,15 +27,17 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', Validators.required],
-      senha: ['', Validators.required],
+      pass: ['', Validators.required],
+      confirmPass: ['', Validators.required],
     });
   }
 
   onSubmit():void {
     const rawForm = this.registerForm.getRawValue();   
   
-    this.authService
-      .register(rawForm.email, rawForm.username, rawForm.senha)
+    if(rawForm.pass == rawForm.confirmPass){
+      this.authService
+      .register(rawForm.email, rawForm.username, rawForm.pass)
       .subscribe({
         next: () => {
           this.router.navigateByUrl('/');
@@ -44,6 +46,8 @@ export class RegisterComponent {
           this.errorMessage = err.code;
         }
       });
+    }   
+    else this.errorMessage = "Password doesn't match"
   }
 
 }
