@@ -10,6 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconsModule } from './icons/icons.module';
 import { HomeModule } from './pages/home/home.module';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -26,17 +27,20 @@ import { HomeModule } from './pages/home/home.module';
     FontAwesomeModule
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  providers: []
 })
 export class AppComponent implements OnInit{
   title = 'finwise';
 
-  constructor( private auth: AuthService){   
-  }
+  constructor( private auth: AuthService ){}
+
   ngOnInit(): void {
     this.auth.user$.subscribe(user => {
       if(user){
+        console.log(user)
         this.auth.currentUserSig.set({
+          // userId: user.
           email: user.email!,
           username: user.displayName!,
         });

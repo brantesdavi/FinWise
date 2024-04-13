@@ -14,23 +14,29 @@
                 <fa-icon  class="bg-offBlack_2 text-2xl py-1.5 px-3 rounded-lg" [icon]="['fas', 'arrow-up']"></fa-icon>
                 <div class=" flex flex-col">
                     <span class="text-xs">income</span>
-                    <span>R$ 450.00</span>
+                    <span>R$ {{totalIncome}}</span>
                 </div>
             </div>
             <div class="w-full text-offWhite flex items-center bg-offBlack rounded-lg px-2 py-4 space-x-4">
                 <fa-icon  class="text-rose-300 bg-offBlack_2 text-2xl py-1.5 px-3 rounded-lg" [icon]="['fas', 'arrow-down']"></fa-icon>
                 <div class=" flex flex-col">
                     <span class="text-xs">spending</span>
-                    <span>R$ 450.00</span>
+                    <span>R$ {{totalSpending}}</span>
                 </div>
             </div>
         </div>
 
     </div>
     <div>
-        <div class="flex justify-between">
-            <h2 class="text-offWhite">Transections</h2>
-            <span class="text-finPurple">See more</span>
+        <div class="flex justify-between items-end">
+            <h2 class="text-offWhite text-xl">Transections</h2>
+            <span class="text-finPurple font-semibold">See more</span>
+        </div>
+        <div>
+            <h3 class="text-offWhite text-lg">today</h3>
+            <div *ngFor="let transaction of transactions" class="space-y-8">
+                <app-item-transaction [transaction]="transaction"></app-item-transaction>
+            </div>
         </div>
     </div>
 
