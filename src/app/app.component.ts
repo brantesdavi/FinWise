@@ -38,7 +38,6 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.auth.user$.subscribe(user => {
       if(user){
-        console.log(user)
         this.auth.currentUserSig.set({
           // userId: user.
           email: user.email!,

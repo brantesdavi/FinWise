@@ -35,20 +35,21 @@ export class AuthenticantionComponent {
     });
   }
 
-  onSubmit():void {
-    const rawForm = this.loginForm.getRawValue();   
-  
-    this.authService
-      .login(rawForm.email, rawForm.senha)
-      .subscribe({
-        next: () => {
-          this.router.navigateByUrl('/home');
-          this.errorMessage = null;
-        },
-        error: (err) => {
-          this.errorMessage = err.code;
-        }
-      });
+
+  async onSubmit() {
+    const rawForm = this.loginForm.getRawValue();
+    try {
+      await this.authService.login(rawForm.email, rawForm.senha);
+      this.router.navigateByUrl('/home');
+      this.errorMessage = null;
+    } catch (error) {
+      console.error("Erro durante o login:", error);
+    }
   }
+  
+  
+  
+  
+  
   
 }
