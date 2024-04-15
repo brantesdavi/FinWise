@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Transaction } from '../models/transaction.interface';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,12 @@ export class TransactionsService {
   }
 
   getTransactionsByUserId(userId: string): Observable<Transaction[]> {
-    const params = new HttpParams().set('userId', userId);
-    return this.http.get<Transaction[]>(this.transactionsUrl, { params });
+    return this.http.get<Transaction[]>(`${this.transactionsUrl}/${userId}`)
+      .pipe(
+        catchError(error => {
+          console.error('Error fetching transactions:', error);
+          throw error;
+        })
+      );
   }
 }

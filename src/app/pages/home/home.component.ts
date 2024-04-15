@@ -19,7 +19,7 @@ export class HomeComponent{
   totalIncome: number = 0;
   totalSpending: number = 0;
   
-  transactions: Transaction[] | undefined;
+  transactions: Transaction[] = [];
   userId: string | undefined;
 
   constructor( 
@@ -33,6 +33,8 @@ export class HomeComponent{
     // this.calculeTotal();
     // this.createTransaction();
     this.fetchTransactionsByUserId();
+
+    console.log(this.userId);
   }  
 
   logout(){
@@ -84,7 +86,6 @@ export class HomeComponent{
   
       this.transactionService.getTransactionsByUserId(this.userId).subscribe({
         next: (res) => {
-          console.log('Transações:', res); // Verifique o formato da resposta no console
           this.transactions = res;
         },
         error: (er) => {
