@@ -9,6 +9,7 @@ import { AuthService } from './services/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconsModule } from './icons/icons.module';
 import { HomeModule } from './pages/home/home.module';
+import { TransactionsService } from './services/transactions.service';
 
 
 @Component({
@@ -28,18 +29,20 @@ import { HomeModule } from './pages/home/home.module';
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: []
+  providers: [TransactionsService]
 })
 export class AppComponent implements OnInit{
   title = 'finwise';
 
-  constructor( private auth: AuthService ){}
+  constructor( private auth: AuthService){}
 
   ngOnInit(): void {
     this.auth.user$.subscribe(user => {
       if(user){
+        console.log('Seu usuario: ')
+        console.log(user)
         this.auth.currentUserSig.set({
-          // userId: user.
+          userId: user.uid,
           email: user.email!,
           username: user.displayName!,
         });
@@ -48,4 +51,11 @@ export class AppComponent implements OnInit{
       }
     })
   }
+
+  
+ 
+
+
+
+
 }

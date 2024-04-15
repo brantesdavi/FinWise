@@ -28,13 +28,10 @@ export class AuthService {
 
   
   async login(email: string, pass: string): Promise<void> {
-    // Realiza o login usando o Firebase Authentication
     await signInWithEmailAndPassword(this.firebaseAuth, email, pass);
 
-    // Após o login bem-sucedido, obtém o token JWT e armazena-o
     this._token = await this.getToken();
 
-    // Emite o evento de login bem-sucedido
     this.loginSuccessEvent.emit();
   }
 
@@ -42,7 +39,7 @@ export class AuthService {
     return new Promise<string>((resolve, reject) => {
       user(this.firebaseAuth)
         .pipe(
-          first(), // Emite apenas o primeiro valor e completa
+          first(),
           map(user => {
             if (!user) {
               throw new Error('Usuário não está autenticado');
