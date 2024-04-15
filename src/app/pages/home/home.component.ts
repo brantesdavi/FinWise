@@ -34,7 +34,8 @@ export class HomeComponent{
     // this.createTransaction();
     this.fetchTransactionsByUserId();
 
-    console.log(this.userId);
+    console.log(this.transactions)
+    console.log(typeof(this.transactions))
   }  
 
   logout(){
@@ -63,12 +64,11 @@ export class HomeComponent{
 
     if(this.userId){
       const data = {
-        "spendOrIncome": true,
-        "category": "Groceries",
-        "title": "TESTE3",
-        "price": 50,
-        "date": new Date(),
-        "userId": this.userId
+        "spendOrIncome": false,
+        "title": "Exemplo de transação",
+        "price": 50.00,
+        "date": new Date("2024-04-15"),
+        "userId": "KOv8sBDm8ecKPQX73UW6OrNH3Kb2"
       }
       
       this.transactionService.create(data).subscribe({
@@ -86,7 +86,12 @@ export class HomeComponent{
   
       this.transactionService.getTransactionsByUserId(this.userId).subscribe({
         next: (res) => {
-          this.transactions = res;
+          if (Array.isArray(res)) { // Verifica se res é um array
+            this.transactions = res;
+          } else {
+            throw new Error('Transactions data is not an array');
+          }
+          console.log(this.transactions);
         },
         error: (er) => {
           console.error('Error trying to find the transactions', er);
@@ -96,6 +101,7 @@ export class HomeComponent{
       console.error('Error trying to find the transactions', er);
     }
   }
+  
   
 
   getIdUser(): void{

@@ -1,9 +1,17 @@
 export interface Transaction {
     transactionId?: string,
     spendOrIncome: boolean,
-    category?: string,
-    title: string,
+    title: string,    
     price: number,
     date: Date
-    userId: string
+    createdAd?: Date,
+
+
+    categoryId?: number,
+    userId: string,
+
+    recurrrenceUnit?: String,
+    quantity?: Number,
+    endDate?: Date
+
 }

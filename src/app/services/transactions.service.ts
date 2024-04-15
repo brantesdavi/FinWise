@@ -8,7 +8,7 @@ import { Observable, catchError } from 'rxjs';
 })
 export class TransactionsService {
 
-  private transactionsUrl = 'http://localhost:3000/transactions'
+  private transactionsUrl = 'http://localhost:3333/transactions'
   
   constructor(private http: HttpClient) {}
 
@@ -27,7 +27,7 @@ export class TransactionsService {
   }
 
   getTransactionsByUserId(userId: string): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(`${this.transactionsUrl}/${userId}`)
+    return this.http.get<Transaction[]>(`${this.transactionsUrl}?userId=${userId}`)
       .pipe(
         catchError(error => {
           console.error('Error fetching transactions:', error);
