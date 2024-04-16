@@ -1,16 +1,18 @@
 <div [ngClass]="transactions.length > 20 ? 'h-auto' : 'h-screen'" class="bg-black p-4 space-y-4">
-
     <div class="flex flex-col space-y-2">
+        <div class="py-6">
+            <h1 class="text-2xl text-white font-semibold">Hello Person</h1>
+        </div>
         <div 
             style="
                 background-image: url(../../../assets/360_F_298473896_Vsz21xTwMtroEeeGgU8pL2vwt3N65pfR.png);
                 border-radius: 20px;"
             class="card-balance bg-cover px-6 py-8 flex flex-col text-offWhite">
             <span class="text-sm">Total Balance</span>
-            <span class="text-white text-4xl font-medium">R$ 15000<span class="text-base font-normal">.00</span></span>
+            <span class="text-white text-4xl font-medium">R$ {{totalBalance}}<span class="text-base font-normal">.00</span></span>
         </div>
 
-        <div class="flex flex-row space-x-4">
+        <div class="flex flex-row space-x-2">
             <div class="w-full text-offWhite flex items-center bg-offBlack rounded-lg px-2 py-4 space-x-4">
                 <fa-icon  class="bg-offBlack_2 text-2xl py-1.5 px-3 rounded-lg" [icon]="['fas', 'arrow-up']"></fa-icon>
                 <div class=" flex flex-col">
@@ -30,7 +32,7 @@
     </div>
     <div>
         <div class="flex justify-between items-end">
-            <h2 class="text-offWhite text-xl">Transections</h2>
+            <h2 class="text-offWhite text-xl font-medium">Transactions</h2>
             <span class="text-finPurple font-semibold">See more</span>
         </div>
     </div>

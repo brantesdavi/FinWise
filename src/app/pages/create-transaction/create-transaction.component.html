@@ -1,0 +1,25 @@
+<div class="flex flex-col justify-center py-4">
+  <div class="text-white w-full px-4 text-lg ">
+
+    
+    <div 
+      (click)="expenseOrIncomeToggle()" 
+      class=" bg-offBlack flex p-3 rounded-lg">
+      <div 
+        [ngClass]="{ 'bg-finPurple': expenseOrIncome, 'bg-transparent': !expenseOrIncome }" 
+        class=" w-1/2 rounded-lg flex justify-center py-1.5">
+        <span class="font-medium">expense</span>
+      </div>
+      <div  
+        [ngClass]="{ 'bg-finPurple': !expenseOrIncome, 'bg-transparen': expenseOrIncome }" 
+        class="w-1/2 rounded-lg flex justify-center py-1.5">
+        <span class="font-medium">income</span>
+      </div>
+
+    </div>
+  </div>
+  <div class="flex flex-col">
+      <app-income-section *ngIf="!expenseOrIncome"></app-income-section>
+      <app-expense-section *ngIf="expenseOrIncome"></app-expense-section>
+  </div>
+</div>

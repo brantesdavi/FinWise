@@ -1,0 +1,94 @@
+<div class="text-white w-full text-xl h-screen">
+  <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+    <div class="form-group flex border-b border-offBlack_2 py-3 px-4 space-x-4">
+      <label for="title text-offWhite">title:</label>
+      <input placeholder="choose a title" type="text" class="bg-transparent w-full" id="title" formControlName="title">
+    </div>
+    <div class="form-group flex border-b border-offBlack_2 py-3 p-4 space-x-4">
+      <label for="price">price:</label>
+      <div>
+        <span>R$</span>
+        <input placeholder="00.00" type="number" class="form-control bg-transparent" id="price" formControlName="price">
+      </div>
+    </div>
+    <div class="form-group flex flex-row items-center border-b border-offBlack_2 py-3 p-4 space-x-4">
+      <label for="date">date:</label>
+      <input type="date" class="form-control bg-offBlack py-2 px-4 rounded-lg" 
+       id="date" formControlName="date">
+    </div>
+
+    <div class="form-group flex border-b border-offBlack_2 py-3 p-5 space-x-4 ">
+      <label for="date">category:</label>
+      <div class="relative w-full">
+        <span  (click)="categorySectionToggle()" class=" w-full">
+          <div *ngIf="choosedCategory" class="space-x-2 flex items-center">
+            <span >{{choosedCategory.title}}</span> 
+            <fa-icon [icon]="['fas', choosedCategory.icon]" 
+              class="text-2xl" ></fa-icon>
+          </div>
+          <span *ngIf="!choosedCategory">Lazer</span> 
+        </span>
+        <div 
+          (mouseleave)="categorySectionToggle()" 
+          class="mt-4 absolute px-8 py-3 text-white bg-offBlack rounded-md" 
+          style="top: 100%;" *ngIf="categorySection">  
+
+          <div *ngFor="let category of categories" class="flex flex-row items-center justify-end py-2" 
+          (click)="chooseCategory(category)">
+            {{category.title}} 
+            <div style="width: 30px;" class="flex justify-center items-center ml-4">
+              <fa-icon [icon]="['fas', category.icon]" 
+              class="text-2xl" 
+              >
+              </fa-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+
+    </div>
+
+    <div class="form-group border-b border-offBlack_2 py-3 px-4">
+      <div class="flex justify-between">
+        <span for="date">subscription</span>
+        <div 
+          [ngClass]="{'bg-white justify-start': !subscription, 'bg-finPurple justify-end': subscription}" 
+          class="rounded-lg bg-white p-1 space-x-2 flex " 
+          (click)="subscriptionToggle()"
+          style="width: 70px;"
+        >
+          <div [ngClass]="{'bg-black': !subscription, 'bg-white': subscription}" class="bg-white rounded-lg" style="width: 30px;height: 30px;"></div>
+        </div>
+      </div>
+      <div *ngIf="subscription" class="flex flex-col space-y-2 py-4">
+        <div (click)="frequencyToggle()">
+          <div class="flex items-center space-x-8 py-2 ">          
+            <div 
+            [ngClass]="frequency ?  'bg-finPurple':  'bg-transparent'" 
+            class=" w-1/2 rounded-lg flex justify-center py-1.5">
+          <span class="font-medium">monthly</span>
+          </div>
+          <div  
+          [ngClass]="!frequency ?  'bg-finPurple':  'bg-transparent'" 
+            class="w-1/2 rounded-lg flex justify-center py-1.5">
+            <span class="font-medium">yearly</span>
+          </div>
+        </div>
+        </div>
+        <div class="form-group flex py-3 space-x-4">
+          <label for="price">Frequency:</label>
+          <input type="number" placeholder="1" class="form-control bg-transparent" id="frequencyPrice" formControlName="frequencyPrice">
+        </div>
+        <div class="space-x-4 py-3 flex flex-row items-center">
+          <label for="endDate">end date:</label>
+          <input type="date" class="form-control bg-offBlack py-2 px-4 rounded-lg" id="endDate" formControlName="endDate">
+        </div>
+        
+      </div>
+    </div>
+    <button type="submit" class="bg-finPurple">Submit</button>
+  </form>
+  
+</div>

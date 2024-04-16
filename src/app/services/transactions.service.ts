@@ -8,7 +8,9 @@ import { Observable, catchError } from 'rxjs';
 })
 export class TransactionsService {
 
-  private transactionsUrl = 'http://localhost:3333/transactions'
+  // private transactionsUrl = 'http://localhost:3333/transactions'
+  private transactionsUrl = 'https://finwise-api.onrender.com/transactions'
+  
   
   constructor(private http: HttpClient) {}
 

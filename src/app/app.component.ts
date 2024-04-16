@@ -10,6 +10,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconsModule } from './icons/icons.module';
 import { HomeModule } from './pages/home/home.module';
 import { TransactionsService } from './services/transactions.service';
+import { NavBarModule } from './components/nav-bar/nav-bar.module';
+import { CreateTransactionModule } from './pages/create-transaction/create-transaction.module';
 
 
 @Component({
@@ -22,10 +24,12 @@ import { TransactionsService } from './services/transactions.service';
     FormsModule, 
     AuthenticantionModule, 
     HomeModule,
+    CreateTransactionModule,
     RegisterModule,
     HttpClientModule,
     IconsModule, 
-    FontAwesomeModule
+    FontAwesomeModule,
+    NavBarModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

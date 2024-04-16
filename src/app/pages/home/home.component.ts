@@ -18,6 +18,7 @@ export class HomeComponent{
 
   totalIncome: number = 0;
   totalSpending: number = 0;
+  totalBalance: number = 0;
   
   transactions: Transaction[] = [];
   userId: string | undefined;
@@ -30,12 +31,8 @@ export class HomeComponent{
 
   ngOnInit(): void {
     const userId = this.getIdUser();
-    // this.calculeTotal();
     // this.createTransaction();
     this.fetchTransactionsByUserId();
-
-    console.log(this.transactions)
-    console.log(typeof(this.transactions))
   }  
 
   logout(){
@@ -43,22 +40,25 @@ export class HomeComponent{
     this.router.navigate(['']);
   }
 
-  // calculeTotal() {
-  //   this.totalIncome = 0;
-  //   this.totalSpending = 0;
+  calculeTotal() {
+    this.totalIncome = 0;
+    this.totalSpending = 0;
+    this.totalBalance = 0;
   
-  //   this.transactions.forEach(transaction => {
-  //     if (transaction.spendOrIncome) {
-  //       this.totalIncome += transaction.price;
-  //     } else {
-  //       this.totalSpending += transaction.price;
-  //     }
-  //   });
+    this.transactions.forEach(transaction => {
+      if (transaction.spendOrIncome) {
+        this.totalIncome += transaction.price;
+        this.totalBalance += transaction.price;
+      } else {
+        this.totalSpending += transaction.price;
+        this.totalBalance -= transaction.price;
+      }
+    });
   
-  //   // Ensure two decimal places for both totalIncome and totalSpending
-  //   this.totalIncome = parseFloat(this.totalIncome.toFixed(2));
-  //   this.totalSpending = parseFloat(this.totalSpending.toFixed(2));
-  // }
+    // Ensure two decimal places for both totalIncome and totalSpending
+    this.totalIncome = parseFloat(this.totalIncome.toFixed(2));
+    this.totalSpending = parseFloat(this.totalSpending.toFixed(2));
+  }
 
   createTransaction(): void {
 
@@ -91,7 +91,7 @@ export class HomeComponent{
           } else {
             throw new Error('Transactions data is not an array');
           }
-          console.log(this.transactions);
+          this.calculeTotal();
         },
         error: (er) => {
           console.error('Error trying to find the transactions', er);
@@ -105,7 +105,8 @@ export class HomeComponent{
   
 
   getIdUser(): void{
-    const user = this.authService.currentUserSig();
+    // const user = this.authService.currentUserSig();
+    const user = {"userId": "KOv8sBDm8ecKPQX73UW6OrNH3Kb2"};
     if(user){
       this.userId = user.userId;
     }
