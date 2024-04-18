@@ -1,25 +1,22 @@
-<div class="flex flex-col justify-center py-4">
-  <div class="text-white w-full px-4 text-lg ">
-
-    
+<div class="flex flex-col py-4 h-screen">
+  <div class="text-white w-full px-4 text-lg ">    
     <div 
       (click)="expenseOrIncomeToggle()" 
       class=" bg-offBlack flex p-3 rounded-lg">
       <div 
-        [ngClass]="{ 'bg-finPurple': expenseOrIncome, 'bg-transparent': !expenseOrIncome }" 
+        [ngClass]="{ 'bg-finPurple font-semibold': expenseOrIncome, 'bg-transparent text-deactivatedText': !expenseOrIncome }" 
         class=" w-1/2 rounded-lg flex justify-center py-1.5">
-        <span class="font-medium">expense</span>
+        <span class="">expense</span>
       </div>
       <div  
-        [ngClass]="{ 'bg-finPurple': !expenseOrIncome, 'bg-transparen': expenseOrIncome }" 
+        [ngClass]="{ 'bg-finPurple font-semibold': !expenseOrIncome, 'bg-transparen text-deactivatedText': expenseOrIncome }" 
         class="w-1/2 rounded-lg flex justify-center py-1.5">
-        <span class="font-medium">income</span>
+        <span class="">income</span>
       </div>
-
     </div>
   </div>
   <div class="flex flex-col">
-      <app-income-section *ngIf="!expenseOrIncome"></app-income-section>
-      <app-expense-section *ngIf="expenseOrIncome"></app-expense-section>
+    <app-expense-section [userId]="userId" *ngIf="expenseOrIncome"></app-expense-section>
+    <app-income-section [userId]="userId" *ngIf="!expenseOrIncome"></app-income-section>
   </div>
 </div>

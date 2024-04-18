@@ -23,6 +23,8 @@ export class HomeComponent{
   transactions: Transaction[] = [];
   userId: string | undefined;
 
+  
+
   constructor( 
     private authService: AuthService,
     private router: Router, 
@@ -31,7 +33,6 @@ export class HomeComponent{
 
   ngOnInit(): void {
     const userId = this.getIdUser();
-    // this.createTransaction();
     this.fetchTransactionsByUserId();
   }  
 
@@ -46,7 +47,7 @@ export class HomeComponent{
     this.totalBalance = 0;
   
     this.transactions.forEach(transaction => {
-      if (transaction.spendOrIncome) {
+      if (!transaction.spendOrIncome) {
         this.totalIncome += transaction.price;
         this.totalBalance += transaction.price;
       } else {
@@ -58,24 +59,6 @@ export class HomeComponent{
     // Ensure two decimal places for both totalIncome and totalSpending
     this.totalIncome = parseFloat(this.totalIncome.toFixed(2));
     this.totalSpending = parseFloat(this.totalSpending.toFixed(2));
-  }
-
-  createTransaction(): void {
-
-    if(this.userId){
-      const data = {
-        "spendOrIncome": false,
-        "title": "Exemplo de transação",
-        "price": 50.00,
-        "date": new Date("2024-04-15"),
-        "userId": "KOv8sBDm8ecKPQX73UW6OrNH3Kb2"
-      }
-      
-      this.transactionService.create(data).subscribe({
-        next: res => console.log(res),
-        error: er => console.error('Erro ao enviar dados para o backend:', er)
-      })
-    }  
   }
 
   fetchTransactionsByUserId(): void {
@@ -105,8 +88,7 @@ export class HomeComponent{
   
 
   getIdUser(): void{
-    // const user = this.authService.currentUserSig();
-    const user = {"userId": "KOv8sBDm8ecKPQX73UW6OrNH3Kb2"};
+    const user = this.authService.currentUserSig();
     if(user){
       this.userId = user.userId;
     }

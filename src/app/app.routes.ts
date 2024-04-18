@@ -8,12 +8,18 @@ import { UserComponent } from './pages/user/user.component';
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: AuthenticantionComponent },
     { path: 'register', component: RegisterComponent },
-    {path: 'home', component: HomeComponent},
-    {path: 'transactions/create', component: CreateTransactionComponent},
-    {path: 'user', component: UserComponent},
-    {path: 'analytics', component: AnalyticsComponent},
-    // {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+
+    // {path: 'home', component: HomeComponent},
+    // { path: '', redirectTo: 'transactions/create', pathMatch: 'full' },
+    // {path: 'transactions/create', component: CreateTransactionComponent},
+    // {path: 'user', component: UserComponent},
+    // {path: 'analytics', component: AnalyticsComponent},
+
+    {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+    {path: 'transactions/create', component: CreateTransactionComponent, canActivate: [AuthGuard]},
+    {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
+    {path: 'analytics', component: AnalyticsComponent, canActivate: [AuthGuard]},
 ];

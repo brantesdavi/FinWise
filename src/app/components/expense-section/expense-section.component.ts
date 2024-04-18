@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Transaction } from '../../models/transaction.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TransactionsService } from '../../services/transactions.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-expense-section',
@@ -8,14 +10,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ExpenseSectionComponent {
   transactionForm!: FormGroup;
+  @Input() userId: string | undefined;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private transactionService: TransactionsService, private authService: AuthService) {}
 
   subscription: boolean = false;
-  frequency: boolean = true;
+  frequencyUnitBool: boolean = true;
+  frequencyUnit: any = null ;
   categorySection: boolean = false;
 
   choosedCategory: any;
+  date: Date = new Date();
+
 
   categories: any[] = [
     {
@@ -55,40 +61,51 @@ export class ExpenseSectionComponent {
     },
   ]
 
-
   ngOnInit() {
+    
+    console.log(this.userId)
     this.choosedCategory = this.categories[0]
     this.transactionForm = this.fb.group({
       spendOrIncome: true,
+      userId: [this.userId],
       title: ['', Validators.required], // Title is required
       price: ['', Validators.required], // Price is required
-      date: [new Date(), Validators.required], // Default to today's date, required
       categoryId: [''], // Optional field, no validation
-
-      frequencyPrice: [''], // Optional field, no validation
-      endDate: [new Date()], // Default to today's date, required
+      frequency: [''], // Optional field, no validation
     });
   }
 
   onSubmit() {
-    if (this.transactionForm.valid) {
+    console.log(this.userId)
+    if (this.transactionForm.valid && this.userId) {  
       const formValue: Transaction = this.transactionForm.value as Transaction;
+      formValue.userId = this.userId;
+      formValue.categoryId = this.choosedCategory.id;
+      formValue.date = this.date;
       if(this.subscription){
-        if(this.frequency){
-          formValue.recurrenceUnit = 'monthly'
-        } else formValue.recurrenceUnit = 'yearly'
+        if(this.frequencyUnit){
+          formValue.frequencyUnit = 'monthly';
+        } else formValue.frequencyUnit = 'yearly';
+        formValue.frequency = 1;
       }
-      console.log('Submitted transaction:', formValue);
-      // this.transactionForm.reset(); 
+      this.transactionService.create(formValue)
+      .subscribe(
+        () => this.transactionForm.reset()
+      );      
     }
   }
+
+  onDateChange(selectedDate: any): void {
+    this.date = selectedDate;
+  }
+  
 
   subscriptionToggle(){
     this.subscription = !this.subscription
   }
 
   frequencyToggle(){
-    this.frequency = !this.frequency
+    this.frequencyUnitBool = !this.frequencyUnitBool
   }
 
   categorySectionToggle(){
@@ -97,6 +114,5 @@ export class ExpenseSectionComponent {
 
   chooseCategory(category: any){
     this.choosedCategory = category
-    this.categorySectionToggle();
   }
 }

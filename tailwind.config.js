@@ -11,6 +11,7 @@ module.exports = {
         "secondPurple": "#1F1629",
         "offBlack": "#181818",
         "offBlack_2": "#202020",
+        "deactivatedText": "#ACACAC"
 
       }
     },

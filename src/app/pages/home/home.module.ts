@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { HomeComponent } from './home.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ItemTransactionModule } from '../../components/item-transaction/item-transaction.module';
+import { DatepickerModule } from '../../components/datepicker/datepicker.module';
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule, ItemTransactionModule],

@@ -1,0 +1,55 @@
+<div class="text-white w-full">
+    <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+      <div class="form-group flex border-b border-offBlack_2 py-3 px-4 space-x-4">
+        <label class="text-lg" for="title text-offWhite">title:</label>
+        <input placeholder="choose a title" type="text" class="bg-transparent w-full" id="title" formControlName="title">
+      </div>
+      <div class="form-group flex border-b border-offBlack_2 py-3 p-4 space-x-4">
+        <label class="text-lg" for="price">price:</label>
+        <div>
+          <span>R$</span>
+          <input placeholder="00.00" type="number" class="form-control bg-transparent" id="price" formControlName="price">
+        </div>
+      </div>
+      <div class="form-group flex flex-row items-center border-b border-offBlack_2 py-3 p-4 space-x-4">
+        <label class="text-lg" for="date">date:</label>
+        <app-datepicker class="w-full" (selectedDateChange)="onDateChange($event)"></app-datepicker>
+      </div>
+  
+      <!-- <div class="form-group flex items-center border-b border-offBlack_2 py-3 p-5 space-x-4 ">
+        <label class="text-lg" for="date">category:</label>
+        <div class="relative w-full bg-offBlack py-2 px-4 rounded-lg flex items-center cursor-pointer">
+          <span   class=" w-full"  (click)="categorySectionToggle()">
+            <div *ngIf="choosedCategory" class="space-x-4 flex items-center">
+              <fa-icon [icon]="['fas', choosedCategory.icon]" 
+                class="" ></fa-icon>
+              <span >{{choosedCategory.title}}</span>             
+            </div>
+          </span>
+          <div>
+            <fa-icon [icon]="['fas', 'chevron-down']" 
+              class="" ></fa-icon>
+          </div>
+          <div 
+            (mouseleave)="categorySectionToggle()" 
+            class="mt-4 absolute py-3 px-4 text-white bg-offBlack rounded-md w-full" 
+            style="top: 80%; left: 0;" *ngIf="categorySection">  
+  
+            <div *ngFor="let category of categories" class="flex flex-row items-center justify-start py-2" 
+            (click)="chooseCategory(category); categorySectionToggle()">
+              <div style="width: 30px;" class="flex justify-center items-center mr-3">
+                <fa-icon [icon]="['fas', category.icon]" 
+                class="" 
+                >
+                </fa-icon>
+              </div>
+              {{category.title}} 
+              
+            </div>
+          </div>
+        </div>   -->
+      <!-- </div> -->
+      <button type="submit" class="bg-finPurple">Submit</button>
+    </form>
+    
+  </div>

@@ -10,8 +10,8 @@ export interface Transaction {
     categoryId?: number,
     userId: string,
 
-    recurrenceUnit?: String,
-    quantity?: Number,
+    frequencyUnit?: String,
+    frequency?: Number,
     endDate?: Date
 
 }
